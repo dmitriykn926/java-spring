@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: ${us.name:postgres}
+    password: postgres
+    driver: org.postgresql.Driver
+#    platform: postgresql
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties.hibernate:
+      format_sql: true
+      hbm2ddl.auto: validate
+
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
+
+server:
+  port: 8081
+
+#
+#db:
+#  username: postgres
+#  url: jdbc:postgresql://localhost:5432/postgres
+#  driver: org.postgresql.Driver
+#  hosts:
+#    - localhost
+#    - 127.0.0.1
+#  pools:
+#    - size: 1
+#      timeout: 1
+#    - size: 2
+#      timeout: 2
+#    - size: 3
+#      timeout: 3
