@@ -2,6 +2,9 @@ package com.dy.dev.service;
 
 import com.dy.dev.annotation.IT;
 import com.dy.dev.dao.UserRepository;
+import com.dy.dev.dto.PersonalInfo;
+import com.dy.dev.dto.PersonalInfo2;
+import com.dy.dev.dto.UserFilter;
 import com.dy.dev.dto.entity.Role;
 import com.dy.dev.dto.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -23,6 +28,26 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public class UserServiceTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkAuditing() {
+        Optional<User> user = userRepository.findById(1);
+        user.ifPresent(u -> u.setBirthDate(u.getBirthDate().plusYears(1)));
+        userRepository.flush();
+    }
+
+    @Test
+    void checkCustomFilterUserRepository() {
+        UserFilter userFilter = new UserFilter("Ivan", "Ivanov", null);
+        List<User> personalInfoList = userRepository.findAllByFilter(userFilter);
+        System.out.println(personalInfoList);
+    }
+
+    @Test
+    void checkProjections() {
+        List<PersonalInfo2> personalInfoList = userRepository.findAllByCompanyId(1L);
+        System.out.println(personalInfoList);
+    }
 
     @Test
     void checkPageable() {

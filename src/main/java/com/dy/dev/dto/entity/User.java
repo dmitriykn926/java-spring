@@ -15,7 +15,7 @@ import java.util.List;
 @ToString(exclude = {"company", "userChats"})
 @EqualsAndHashCode(exclude = {"company", "userChats"})
 @Table(name = "users")
-public class User implements BaseEntity<Long> {
+public class User extends AuditEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

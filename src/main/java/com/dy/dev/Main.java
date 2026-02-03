@@ -7,6 +7,7 @@ import com.dy.dev.dao.CompanyRepository;
 import com.dy.dev.dao.UserRepository;
 import com.dy.dev.dto.ConnectionPool;
 import com.dy.dev.listener.dto.CompanyReadDto;
+import com.dy.dev.service.ClientService;
 import com.dy.dev.service.CompanyService;
 import com.dy.dev.service.UserService;
 import com.dy.dev.service.inheritance.TimeService;
@@ -16,19 +17,30 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.Map;
 import java.util.Optional;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
 //        UserRepository userRepository = context.getBean(UserRepository.class);
 
         TimeService timeService = context.getBean(TimeService.class);
         timeService.getServiceInfo();
 
+        Map<String, DaoService> beansOfType = context.getBeansOfType(DaoService.class);
+        System.out.println(beansOfType);
+
+        DaoService bean = context.getBean("daoServicePrivate", DaoService.class);
+        System.out.println(bean);
+
+
+        CompanyService bean1 = context.getBean(CompanyService.class);
+        System.out.println(bean1);
 //        applicationContext();
     }
 

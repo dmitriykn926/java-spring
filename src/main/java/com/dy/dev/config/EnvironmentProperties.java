@@ -26,6 +26,10 @@ public record EnvironmentProperties(String username,
         }
     }
 
+    public static void getClazz() {
+
+    }
+
 
     public void method() {
         System.out.println("method");
