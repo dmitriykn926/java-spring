@@ -30,15 +30,18 @@ public interface UserRepository extends JpaRepository<User, Integer>, FilterUser
             " where u.id in (:ids)")
     int updateRole(Role role, Long... ids);
 
-    @QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "50"))
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @EntityGraph(attributePaths = {"userChats", "company"})
+//    @QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "50"))
+//    @Lock(LockModeType.PESSIMISTIC_WRITE)
+//    @EntityGraph(attributePaths = {"userChats", "company"})
+//    Optional<User> findById(Integer id);
+
+//    @EntityGraph("User.company")
     Optional<User> findById(Integer id);
 
 //    @EntityGraph(attributePaths = {"company", "company.locales"})
     Slice<User> findAllBy(Pageable pageable);
 
-    @EntityGraph(attributePaths = {"company", "company.locales"})
+//    @EntityGraph(attributePaths = {"company", "company.locales"})
     Page<User> findAll(Pageable pageable);
 
     //TODO Projections

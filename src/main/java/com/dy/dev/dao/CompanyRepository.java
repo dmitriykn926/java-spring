@@ -2,8 +2,11 @@ package com.dy.dev.dao;
 
 import com.dy.dev.dto.entity.Company;
 import com.dy.dev.listener.dto.CompanyReadDto;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
@@ -11,7 +14,8 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-public interface CompanyRepository extends JpaRepository<Company, Integer> {
+public interface CompanyRepository extends JpaRepository<Company, Integer>,
+        JpaSpecificationExecutor<Company> {
 
 //    @Query(name = "Company.findByName")
     @Query("select c from Company c " +

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -28,6 +29,13 @@ public class CompanyRepositoryIT {
     private final TransactionTemplate transactionTemplate;
 
     private final CompanyRepository companyRepository;
+
+
+    @Test
+    void testFindCompanyByName() {
+        Optional<Company> company = companyRepository.findByName("Google");
+        assertThat(company.isPresent()).isTrue();
+    }
 
     @Test
     void deleteTest() {

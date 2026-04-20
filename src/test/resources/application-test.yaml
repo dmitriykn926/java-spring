@@ -1,4 +1,13 @@
 spring:
   datasource:
-    username: postgres
-    password: postgres
+    username: test
+    password: test
+
+    #TODO for H2 only
+#    url: jdbc:h2:mem:test
+#    driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update

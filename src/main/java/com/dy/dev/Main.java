@@ -2,6 +2,7 @@ package com.dy.dev;
 
 import com.dy.dev.autowire.DaoService;
 import com.dy.dev.config.AppConfig;
+import com.dy.dev.config.DatabaseProperties;
 import com.dy.dev.config.EnvironmentProperties;
 import com.dy.dev.dao.CompanyRepository;
 import com.dy.dev.dao.UserRepository;
@@ -29,19 +30,26 @@ public class Main {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
 //        UserRepository userRepository = context.getBean(UserRepository.class);
 
-        TimeService timeService = context.getBean(TimeService.class);
-        timeService.getServiceInfo();
+//        TimeService timeService = context.getBean(TimeService.class);
+//        timeService.getServiceInfo();
+//
+//        Map<String, DaoService> beansOfType = context.getBeansOfType(DaoService.class);
+//        System.out.println(beansOfType);
+//
+//        DaoService bean = context.getBean("daoServicePrivate", DaoService.class);
+//        System.out.println(bean);
 
-        Map<String, DaoService> beansOfType = context.getBeansOfType(DaoService.class);
-        System.out.println(beansOfType);
 
-        DaoService bean = context.getBean("daoServicePrivate", DaoService.class);
-        System.out.println(bean);
-
-
-        CompanyService bean1 = context.getBean(CompanyService.class);
-        System.out.println(bean1);
+        CompanyService companyService = context.getBean(CompanyService.class);
+        System.out.println(companyService.getMyPrototype());
+        System.out.println(companyService.getMyPrototype());
+        System.out.println(companyService.getMyPrototype());
+        System.out.println(companyService.getMyPrototype());
+        System.out.println(companyService.getMyPrototype());
 //        applicationContext();
+
+        DatabaseProperties databaseProperties = context.getBean(DatabaseProperties.class);
+        System.out.println(databaseProperties);
     }
 
     private static void applicationContext() {

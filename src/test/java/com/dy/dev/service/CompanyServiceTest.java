@@ -1,12 +1,16 @@
 package com.dy.dev.service;
 
+import com.dy.dev.dao.CompanyRepository;
 import com.dy.dev.dao.UserRepository;
 import com.dy.dev.listener.dto.CompanyReadDto;
 import com.dy.dev.listener.events.EntityEvent;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -24,12 +28,14 @@ class CompanyServiceTest {
     private ApplicationEventPublisher applicationEventPublisher;
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private CompanyRepository companyRepository;
     @InjectMocks
     private CompanyService companyService;
 
     @Test
     void findById() {
-        doReturn(getCompany(COMPANY_ID)).when(userRepository).findById(COMPANY_ID);
+        doReturn(getCompany(COMPANY_ID)).when(companyRepository).findById(COMPANY_ID);
 
         Optional<CompanyReadDto> actualResult = companyService.findById(COMPANY_ID);
         assertThat(getCompany(COMPANY_ID)).isEqualTo(actualResult);

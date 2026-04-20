@@ -7,6 +7,7 @@ import com.dy.dev.dto.PersonalInfo2;
 import com.dy.dev.dto.UserFilter;
 import com.dy.dev.dto.entity.Role;
 import com.dy.dev.dto.entity.User;
+import com.dy.dev.integration.IntegrationBaseTest;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -19,15 +20,23 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @IT
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceTest {
+public class UserServiceTest extends IntegrationBaseTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void testJdbcTemplate() {
+        List<User> allByCompanyId = userRepository.findAllByCompanyId(1);
+        assertThat(allByCompanyId).isNotNull();
+        allByCompanyId.forEach(System.out::println);
+    }
 
     @Test
     void checkAuditing() {
@@ -51,15 +60,21 @@ public class UserServiceTest {
 
     @Test
     void checkPageable() {
-        PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
+        Sort id = Sort.by("id").and(Sort.by("firstname"));
+
+        System.out.println(id);
+        System.out.println(id.isUnsorted());
+
+        PageRequest pageable = PageRequest.of(1, 2, id);
         Slice<User> users = userRepository.findAllBy(pageable);
         users.forEach(System.out::println);
     }
 
     @Test
     void checkSlice() {
-        PageRequest pageable = PageRequest.of(1, 5, Sort.by("id"));
+        PageRequest pageable = PageRequest.of(0, 2, Sort.by("id"));
         Slice<User> slice = userRepository.findAllBy(pageable);
+        System.out.println(slice.toString());
 
         slice.forEach(System.out::println);
         while (slice.hasNext()) {

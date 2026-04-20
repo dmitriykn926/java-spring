@@ -21,13 +21,13 @@ public abstract class AuditEntity<T extends Serializable> implements BaseEntity<
 
     @CreatedDate
     private Instant createdAt;
-    @LastModifiedDate
-    private Instant modifiedAt;
+//    @LastModifiedDate
+//    private Instant modifiedAt;
 
 
     //TODO. Specific object should be configured in Configuration class (AuditAware)
     @CreatedBy
     private String createdBy;
-    @LastModifiedBy
-    private String modifiedBy;
+//    @LastModifiedBy
+//    private Instant modifiedBy;
 }

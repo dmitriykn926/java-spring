@@ -24,9 +24,12 @@ public class ConnectionPool {
     @Value("#{T(java.util.Arrays).asList('1', '2', '3')}")
     private List<String> strings;
 
+    @Value("#{T(java.util.Map).of('1', '123')}")
+    private Map<String, String> map;
+
 //    private final Map<String, CrudRepository> crudRepositoryMap;
 
-    @Value("123")
+    @Value("${db.pool.size}")
     private Integer poolSize;
 
     @Value("${spring.datasource.username}")
