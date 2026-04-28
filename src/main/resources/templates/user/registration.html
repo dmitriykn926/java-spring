@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<form th:action="@{/users/registration}" method="post">
+    <label th:name="username">Username:
+        <input id="username" th:type="text" th:value="${user.username()}" name="username"/>
+    </label><br>
+    <label th:name="birthdate">BirthDate:
+        <input id="birthdate" type="date" th:value="${user.birthDate()}" name="birthdate"/>
+    </label><br>
+    <label th:name="firstname">Firstname:
+        <input id="firstname" th:type="text" th:value="${user.firstname()}" name="firstname"/>
+    </label><br>
+    <label th:name="lastname">Lastname:
+        <input id="lastname" th:type="text" th:value="${user.lastname()}" name="lastname"/>
+    </label><br>
+
+
+    <div th:each="role : ${roles}">
+        <input th:id="${role}" th:type="radio" th:name="role" th:value="${role}" th:checked="${role == user.role()}"/>
+        <label th:for="${role}" th:text="${role}">Role name</label>
+    </div>
+
+    <div th:for="company">
+        <select th:id="company" th:name="companyId">
+            <option th:each="company : ${companies}" th:text="${company.name()}" th:value="${company.id()}" th:selected="${company.id() == user.companyId()}">Company</option>
+        </select>
+    </div>
+
+    <button type="submit">Registration</button>
+
+    <div th:if="${errors}">
+        <p th:each="error : ${errors}" th:text="${error.defaultMessage()}"></p>
+    </div>
+</form>
+</body>
+</html>

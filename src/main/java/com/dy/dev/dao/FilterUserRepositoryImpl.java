@@ -1,6 +1,7 @@
 package com.dy.dev.dao;
 
 import com.dy.dev.dto.UserFilter;
+import com.dy.dev.dto.UserReadDto;
 import com.dy.dev.dto.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -8,6 +9,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
@@ -32,8 +35,8 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         if (userFilter.firstName() != null) {
             predicates.add(criteriaBuilder.like(userRoot.get("firstname"), userFilter.firstName()));
         }
-        if (userFilter.lastname() != null) {
-            predicates.add(criteriaBuilder.like(userRoot.get("lastname"), userFilter.lastname()));
+        if (userFilter.lastName() != null) {
+            predicates.add(criteriaBuilder.like(userRoot.get("lastname"), userFilter.lastName()));
         }
         if (userFilter.birthDate() != null) {
             predicates.add(criteriaBuilder.lessThan(userRoot.get("birthDate"), userFilter.birthDate()));

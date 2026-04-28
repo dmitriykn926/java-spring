@@ -2,14 +2,19 @@ package com.dy.dev.dao;
 
 import com.dy.dev.dto.PersonalInfo;
 import com.dy.dev.dto.PersonalInfo2;
+import com.dy.dev.dto.UserReadDto;
 import com.dy.dev.dto.entity.Role;
 import com.dy.dev.dto.entity.User;
+import com.jayway.jsonpath.Criteria;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -19,6 +24,8 @@ public interface UserRepository extends JpaRepository<User, Integer>, FilterUser
 
     @Query("select u from User u where u.firstname like %:firstName% and u.lastname like %:lastName%")
     List<User> findByAll(String firstName, String lastName);
+
+    <T> Page<T> findAll(Specification<T> criteria, Pageable pageable);
 
     @Query(nativeQuery = true,
             value = "select u.* from users u")

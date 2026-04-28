@@ -47,6 +47,6 @@ public class CompanyServiceIT {
     }
 
     private static Optional<CompanyReadDto> getCompany(int id) {
-        return Optional.of(new CompanyReadDto(id));
+        return Optional.of(new CompanyReadDto(id, null));
     }
 }

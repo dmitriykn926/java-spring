@@ -11,3 +11,4 @@ spring:
       hibernate:
         hbm2ddl:
           auto: update
+    open-in-view: false
